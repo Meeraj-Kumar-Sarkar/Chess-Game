@@ -3,6 +3,7 @@ public class PieceValidation {
     // Helper method to check if a piece's path is clear (for pieces that move in straight lines)
     public static boolean isPathClear(
         char[][] board,
+        boolean isWhite,
         int startRow,
         int startCol,
         int endRow,
@@ -14,6 +15,8 @@ public class PieceValidation {
         int currentRow = startRow + rowStep;
         int currentCol = startCol + colStep;
 
+        char targetPiece = board[endRow][endCol];
+
         while (currentRow != endRow || currentCol != endCol) {
             if (board[currentRow][currentCol] != ' ') {
                 return false;
@@ -21,8 +24,16 @@ public class PieceValidation {
             currentRow += rowStep;
             currentCol += colStep;
         }
-
-        return true;
+        if (
+            targetPiece != ' ' && Character.isUpperCase(targetPiece) != isWhite
+        ) return true;
+        else if (
+            targetPiece != ' ' && Character.isUpperCase(targetPiece) == isWhite
+        ) {
+            return false;
+        } else {
+            return true;
+        }
     }
 
     public static boolean validatePawnMove(
@@ -75,50 +86,72 @@ public class PieceValidation {
 
     public static boolean validateRookMove(
         char[][] board,
+        char piece,
         int startRow,
         int startCol,
         int endRow,
         int endCol
     ) {
+        boolean isWhite = Character.isUpperCase(piece);
         // Rook moves horizontally or vertically
         if (startRow != endRow && startCol != endCol) {
             return false;
         }
 
-        return isPathClear(board, startRow, startCol, endRow, endCol);
+        return isPathClear(board, isWhite, startRow, startCol, endRow, endCol);
     }
 
     public static boolean validateKnightMove(
         char[][] board,
+        char piece,
         int startRow,
         int startCol,
         int endRow,
         int endCol
     ) {
+        boolean isWhite = Character.isUpperCase(piece);
         // Knight moves in L-shape: 2 squares in one direction and 1 square perpendicular
         int rowDiff = Math.abs(endRow - startRow);
         int colDiff = Math.abs(endCol - startCol);
 
-        return (rowDiff == 2 && colDiff == 1) || (rowDiff == 1 && colDiff == 2);
+        if ((rowDiff == 2 && colDiff == 1) || (rowDiff == 1 && colDiff == 2)) {
+            char targetPiece = board[endRow][endCol];
+            if (
+                targetPiece != ' ' &&
+                Character.isUpperCase(targetPiece) != isWhite
+            ) {
+                return true;
+            } else if (
+                targetPiece != ' ' &&
+                Character.isUpperCase(targetPiece) == isWhite
+            ) {
+                return false;
+            } else {
+                return true;
+            }
+        } else return false;
     }
 
     public static boolean validateBishopMove(
         char[][] board,
+        char piece,
         int startRow,
         int startCol,
         int endRow,
         int endCol
     ) {
+        boolean isWhite = Character.isUpperCase(piece);
         // Bishop moves diagonally
         if (Math.abs(endRow - startRow) != Math.abs(endCol - startCol)) {
             return false;
         }
 
-        return isPathClear(board, startRow, startCol, endRow, endCol);
+        return isPathClear(board, isWhite, startRow, startCol, endRow, endCol);
     }
 
     public static boolean validateQueenMove(
         char[][] board,
+        char piece,
         int startRow,
         int startCol,
         int endRow,
@@ -126,10 +159,18 @@ public class PieceValidation {
     ) {
         // Queen combines rook and bishop movements
         if (startRow == endRow || startCol == endCol) {
-            return validateRookMove(board, startRow, startCol, endRow, endCol);
+            return validateRookMove(
+                board,
+                piece,
+                startRow,
+                startCol,
+                endRow,
+                endCol
+            );
         } else if (Math.abs(endRow - startRow) == Math.abs(endCol - startCol)) {
             return validateBishopMove(
                 board,
+                piece,
                 startRow,
                 startCol,
                 endRow,
@@ -141,15 +182,34 @@ public class PieceValidation {
 
     public static boolean validateKingMove(
         char[][] board,
+        char piece,
         int startRow,
         int startCol,
         int endRow,
         int endCol
     ) {
+        boolean isWhite = Character.isUpperCase(piece);
         // King moves one square in any direction
         int rowDiff = Math.abs(endRow - startRow);
         int colDiff = Math.abs(endCol - startCol);
 
-        return rowDiff <= 1 && colDiff <= 1;
+        char targetPiece = board[endRow][endCol];
+
+        if (rowDiff <= 1 && colDiff <= 1) {
+            if (
+                targetPiece != ' ' &&
+                Character.isUpperCase(targetPiece) != isWhite
+            ) return true;
+            else if (
+                targetPiece != ' ' &&
+                Character.isUpperCase(targetPiece) == isWhite
+            ) {
+                return false;
+            } else {
+                return true;
+            }
+        } else {
+            return false;
+        }
     }
 }

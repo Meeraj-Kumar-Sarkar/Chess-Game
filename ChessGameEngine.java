@@ -107,13 +107,37 @@ public class ChessGameEngine {
                     endCol
                 );
             case 'r':
-                return validateRookMove(startRow, startCol, endRow, endCol);
+                return validateRookMove(
+                    piece,
+                    startRow,
+                    startCol,
+                    endRow,
+                    endCol
+                );
             case 'n':
-                return validateKnightMove(startRow, startCol, endRow, endCol);
+                return validateKnightMove(
+                    piece,
+                    startRow,
+                    startCol,
+                    endRow,
+                    endCol
+                );
             case 'b':
-                return validateBishopMove(startRow, startCol, endRow, endCol);
+                return validateBishopMove(
+                    piece,
+                    startRow,
+                    startCol,
+                    endRow,
+                    endCol
+                );
             case 'q':
-                return validateQueenMove(startRow, startCol, endRow, endCol);
+                return validateQueenMove(
+                    piece,
+                    startRow,
+                    startCol,
+                    endRow,
+                    endCol
+                );
             case 'k':
                 return validateKingMove(
                     piece,
@@ -205,6 +229,7 @@ public class ChessGameEngine {
     }
 
     private boolean validateRookMove(
+        char piece,
         int startRow,
         int startCol,
         int endRow,
@@ -212,6 +237,7 @@ public class ChessGameEngine {
     ) {
         return PieceValidation.validateRookMove(
             board,
+            piece,
             startRow,
             startCol,
             endRow,
@@ -220,6 +246,7 @@ public class ChessGameEngine {
     }
 
     private boolean validateKnightMove(
+        char piece,
         int startRow,
         int startCol,
         int endRow,
@@ -227,6 +254,7 @@ public class ChessGameEngine {
     ) {
         return PieceValidation.validateKnightMove(
             board,
+            piece,
             startRow,
             startCol,
             endRow,
@@ -235,6 +263,7 @@ public class ChessGameEngine {
     }
 
     private boolean validateBishopMove(
+        char piece,
         int startRow,
         int startCol,
         int endRow,
@@ -242,6 +271,7 @@ public class ChessGameEngine {
     ) {
         return PieceValidation.validateBishopMove(
             board,
+            piece,
             startRow,
             startCol,
             endRow,
@@ -250,6 +280,7 @@ public class ChessGameEngine {
     }
 
     private boolean validateQueenMove(
+        char piece,
         int startRow,
         int startCol,
         int endRow,
@@ -257,6 +288,7 @@ public class ChessGameEngine {
     ) {
         return PieceValidation.validateQueenMove(
             board,
+            piece,
             startRow,
             startCol,
             endRow,
@@ -273,6 +305,7 @@ public class ChessGameEngine {
     ) {
         return PieceValidation.validateKingMove(
             board,
+            piece,
             startRow,
             startCol,
             endRow,

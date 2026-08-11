@@ -132,6 +132,7 @@ public class SpecialMoves {
             case 'r':
                 return PieceValidation.validateRookMove(
                     board,
+                    piece,
                     startRow,
                     startCol,
                     endRow,
@@ -140,6 +141,7 @@ public class SpecialMoves {
             case 'n':
                 return PieceValidation.validateKnightMove(
                     board,
+                    piece,
                     startRow,
                     startCol,
                     endRow,
@@ -148,6 +150,7 @@ public class SpecialMoves {
             case 'b':
                 return PieceValidation.validateBishopMove(
                     board,
+                    piece,
                     startRow,
                     startCol,
                     endRow,
@@ -156,6 +159,7 @@ public class SpecialMoves {
             case 'q':
                 return PieceValidation.validateQueenMove(
                     board,
+                    piece,
                     startRow,
                     startCol,
                     endRow,
@@ -164,6 +168,7 @@ public class SpecialMoves {
             case 'k':
                 return PieceValidation.validateKingMove(
                     board,
+                    piece,
                     startRow,
                     startCol,
                     endRow,
