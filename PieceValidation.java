@@ -42,7 +42,8 @@ public class PieceValidation {
         int startRow,
         int startCol,
         int endRow,
-        int endCol
+        int endCol,
+        int[] enPassantSquare
     ) {
         boolean isWhite = Character.isUpperCase(piece);
         int direction = isWhite ? -1 : 1; // White pawns move up (-1), black pawns move down (+1)
@@ -68,7 +69,7 @@ public class PieceValidation {
             return true;
         }
 
-        // Capture move (diagonal)
+        // Capture move (diagonal, including en passant)
         if (
             Math.abs(endCol - startCol) == 1 && endRow == startRow + direction
         ) {
@@ -76,6 +77,13 @@ public class PieceValidation {
             if (
                 targetPiece != ' ' &&
                 Character.isUpperCase(targetPiece) != isWhite
+            ) {
+                return true;
+            }
+            if (
+                enPassantSquare != null &&
+                endRow == enPassantSquare[0] &&
+                endCol == enPassantSquare[1]
             ) {
                 return true;
             }
